@@ -3,11 +3,10 @@ const sequelize = require('../../config/connection');
 const { Category, Product } = require('../../models');
 
 router.get('/', (req, res) => {
-  // find all categories
-  // sequelize.col('category.id')
+  // find all categories with its associated Products
   Category.findAll({
       include: [{
-        model: Product,
+        model: Product, 
         where: { category_id: sequelize.col('category.id')}
       }]
     })
@@ -19,8 +18,20 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
+  // find one category by its `id` value and its associated Products
+  Category.findOne({
+    where: {
+      id: req.params.id
+    },
+    include: [{
+      model: Product, 
+      where: { category_id: sequelize.col('category.id')}
+    }]
+  }).then(dbData => res.json(dbData))
+  .catch(err => {
+    console.log(err);
+    res.status(400).json(err);
+  });
 });
 
 router.post('/', (req, res) => {
