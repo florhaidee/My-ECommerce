@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
   Category.findAll({
       include: [{
         model: Product, 
+        foreingKey: 'category_id',
       }]
     })
     .then(dbData => res.json(dbData))
@@ -79,8 +80,14 @@ router.delete('/:id', (req, res) => {
     where: {
       id: req.params.id
     }
+    // ,{
+    // include: [{
+    //   model: Product,
+    //   where: { category_id: sequelize.col('category.id')}
+    // }] 
   })
     .then(dbData => {
+      console.log(dbData)
       if (!dbData) {
         res.status(404).json({ message: 'No  found with this id' });
         return;
