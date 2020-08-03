@@ -28,10 +28,6 @@ Product.belongsToMany(Tag, {
   onDelete: 'SET NULL', 
   onUpdate:  'SET NULL'  
 });
-//   through: ProductTag,
-//   foreignKey: 'id'
-// });
-
 
 // Tags belongToMany Products (through ProductTag)
 Tag.belongsToMany(Product,{
