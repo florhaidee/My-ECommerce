@@ -16,7 +16,7 @@ Category.hasMany(Product, {
   foreingKey: 'category_id', 
   foreignKeyConstraint: true, 
   onDelete: 'SET NULL', 
- // onUpdate:  'SET NULL' 
+  onUpdate:  'SET NULL' 
 });
 
 
