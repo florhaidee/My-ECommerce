@@ -65,7 +65,7 @@ router.put('/:id', (req, res) => {
         res.status(404).json({ message: 'No Tag found with this id' });
         return;
       }
-      res.json(dbData);
+      res.json({ message: 'Tag updated' });
     })
     .catch(err => {
       console.log(err);
@@ -86,7 +86,7 @@ router.delete('/:id', (req, res) => {
         res.status(404).json({ message: 'No Tag found with this id' });
         return;
       }
-      res.json(dbData);
+      res.json({ message: 'Tag deleted' });
     })
     .catch(err => {
       console.log(err);

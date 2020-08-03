@@ -80,9 +80,6 @@ router.post('/', (req, res) => {
     product_name: req.body.product_name,
     price: req.body.price,
     stock: req.body.stock,
-    // category: {
-    //   category_name: req.body.category_name
-    // }}, {include: [Category]
     })
     .then((product) => {
       //if there's product tags, we need to create pairings to bulk create in the ProductTag model
@@ -140,7 +137,7 @@ router.put('/:id', (req, res) => {
         ProductTag.bulkCreate(newProductTags),
       ]);
     })
-    .then((updatedProductTags) => res.json(updatedProductTags))
+    .then((updatedProductTags) => res.json({ message: 'Product updated' }))
     .catch((err) => {
       // console.log(err);
       res.status(400).json(err);

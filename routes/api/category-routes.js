@@ -8,7 +8,8 @@ router.get('/', (req, res) => {
   Category.findAll({
       include: [{
         model: Product, 
-        foreingKey: 'category_id',
+        //foreingKey: 'category_id',
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
       }]
     })
     .then(dbData => res.json(dbData))
@@ -26,7 +27,7 @@ router.get('/:id', (req, res) => {
     },
     include: [{
       model: Product, 
-     // where: { category_id: sequelize.col('category.id')}
+      attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
     }]
   })
   .then(dbData => {
@@ -47,7 +48,8 @@ router.post('/', (req, res) => {
   Category.create({
     category_name: req.body.category_name,
   })
-  .then(dbData => res.json(dbData))
+  .then(dbData => 
+    res.json(dbData))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
@@ -66,7 +68,8 @@ router.put('/:id', (req, res) => {
         res.status(404).json({ message: 'No Category found with this id' });
         return;
       }
-      res.json(dbData);
+      res.json(
+        res.json({ message: 'Category updated'}))
     })
     .catch(err => {
       console.log(err);
@@ -87,7 +90,8 @@ router.delete('/:id', (req, res) => {
         res.status(404).json({ message: 'No Category found with this id' });
         return;
       }
-      res.json(dbData);
+      res.json(
+        res.json({message: 'Category deleted'}))
     })
     .catch(err => {
       console.log(err);
