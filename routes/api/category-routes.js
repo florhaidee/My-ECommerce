@@ -79,17 +79,12 @@ router.delete('/:id', (req, res) => {
   Category.destroy({
     where: {
       id: req.params.id
-    }
-    // ,{
-    // include: [{
-    //   model: Product,
-    //   where: { category_id: sequelize.col('category.id')}
-    // }] 
+    } 
   })
     .then(dbData => {
       console.log(dbData)
       if (!dbData) {
-        res.status(404).json({ message: 'No  found with this id' });
+        res.status(404).json({ message: 'No Category found with this id' });
         return;
       }
       res.json(dbData);

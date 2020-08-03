@@ -53,12 +53,45 @@ router.post('/', (req, res) => {
   });
 });
 
+// update a tag's name by its `id` value
 router.put('/:id', (req, res) => {
-  // update a tag's name by its `id` value
+  Tag.update(req.body, {
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(dbData => {
+      if (!dbData[0]) {
+        res.status(404).json({ message: 'No Tag found with this id' });
+        return;
+      }
+      res.json(dbData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
+// delete on tag by its `id` value
 router.delete('/:id', (req, res) => {
-  // delete on tag by its `id` value
+  Tag.destroy({
+    where: {
+      id: req.params.id
+    } 
+  })
+    .then(dbData => {
+      console.log(dbData)
+      if (!dbData) {
+        res.status(404).json({ message: 'No Tag found with this id' });
+        return;
+      }
+      res.json(dbData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;
